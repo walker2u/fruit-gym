@@ -20,7 +20,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-brand-dark text-white selection:bg-brand-lime selection:text-brand-dark">
+    <main className="min-h-screen bg-white text-brand-dark selection:bg-brand-lime selection:text-white">
       <Navbar onOpenModal={() => openModal("order")} />
       <Hero
         onOpenMenu={() => document.getElementById("menu")?.scrollIntoView({ behavior: "smooth" })}

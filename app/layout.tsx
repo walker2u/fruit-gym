@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fruit Gym | Fuel Your Gains",
-  description: "Fresh cut fruit subscriptions for gym goers. Delivered to your gym.",
+  title: "SimplySliced | Fuel Your Gains",
+  description: "The only cutting you should do is for your muscles. Let us cut the fruit.",
 };
 
 export default function RootLayout({

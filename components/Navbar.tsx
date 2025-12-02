@@ -20,14 +20,14 @@ export default function Navbar({ onOpenModal }: { onOpenModal: () => void }) {
     return (
         <nav
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                    ? "bg-brand-dark/80 backdrop-blur-md border-b border-white/10 py-4"
-                    : "bg-transparent py-6"
+                ? "bg-white/80 backdrop-blur-md border-b border-brand-dark/10 py-4"
+                : "bg-transparent py-6"
                 }`}
         >
             <div className="container mx-auto px-6 flex items-center justify-between">
                 {/* Logo */}
-                <Link href="/" className="text-2xl font-bold tracking-tighter text-white">
-                    FRUIT<span className="text-brand-lime">GYM</span>
+                <Link href="/" className="text-2xl font-bold tracking-tighter text-brand-dark">
+                    SIMPLY<span className="text-brand-lime">SLICED</span>
                 </Link>
 
                 {/* Desktop Menu */}
@@ -37,7 +37,7 @@ export default function Navbar({ onOpenModal }: { onOpenModal: () => void }) {
                     <NavLink href="#partners">For Gyms</NavLink>
                     <button
                         onClick={onOpenModal}
-                        className="bg-brand-lime text-brand-dark font-bold px-6 py-2 rounded-full hover:bg-brand-lime/90 transition-colors"
+                        className="bg-brand-lime text-white font-bold px-6 py-2 rounded-full hover:bg-brand-lime/90 transition-colors"
                     >
                         Get Started
                     </button>
@@ -45,7 +45,7 @@ export default function Navbar({ onOpenModal }: { onOpenModal: () => void }) {
 
                 {/* Mobile Toggle */}
                 <button
-                    className="md:hidden text-white"
+                    className="md:hidden text-brand-dark"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 >
                     {isMobileMenuOpen ? <X /> : <Menu />}
@@ -59,7 +59,7 @@ export default function Navbar({ onOpenModal }: { onOpenModal: () => void }) {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        className="absolute top-full left-0 right-0 bg-brand-dark border-b border-white/10 p-6 md:hidden flex flex-col space-y-4"
+                        className="absolute top-full left-0 right-0 bg-white border-b border-brand-dark/10 p-6 md:hidden flex flex-col space-y-4"
                     >
                         <MobileNavLink href="#menu" onClick={() => setIsMobileMenuOpen(false)}>
                             Menu
@@ -75,7 +75,7 @@ export default function Navbar({ onOpenModal }: { onOpenModal: () => void }) {
                                 setIsMobileMenuOpen(false);
                                 onOpenModal();
                             }}
-                            className="bg-brand-lime text-brand-dark font-bold px-6 py-3 rounded-full w-full"
+                            className="bg-brand-lime text-white font-bold px-6 py-3 rounded-full w-full"
                         >
                             Get Started
                         </button>
@@ -90,7 +90,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
     return (
         <Link
             href={href}
-            className="text-white/80 hover:text-brand-lime transition-colors font-medium"
+            className="text-brand-dark/80 hover:text-brand-lime transition-colors font-medium"
         >
             {children}
         </Link>
@@ -110,7 +110,7 @@ function MobileNavLink({
         <Link
             href={href}
             onClick={onClick}
-            className="text-white/80 hover:text-brand-lime transition-colors font-medium text-lg block"
+            className="text-brand-dark/80 hover:text-brand-lime transition-colors font-medium text-lg block"
         >
             {children}
         </Link>
