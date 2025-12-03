@@ -55,7 +55,7 @@ export default function Hero({ onOpenMenu, onOpenPartner }: { onOpenMenu: () => 
             <div className="absolute bottom-1/4 right-10 w-32 h-32 bg-brand-orange/20 rounded-full blur-3xl" />
 
             {/* Floating Emojis */}
-            <FloatingEmoji emoji="🍌" delay={0} x="-40vw" y="-20vh" />
+            <FloatingEmoji emoji="🍇" delay={0} x="-40vw" y="-20vh" />
             <FloatingEmoji emoji="🍎" delay={1} x="35vw" y="-10vh" />
             <FloatingEmoji emoji="🍍" delay={2} x="-30vw" y="30vh" />
             <FloatingEmoji emoji="🍉" delay={3} x="40vw" y="20vh" />
