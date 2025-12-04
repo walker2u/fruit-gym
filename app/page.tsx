@@ -4,6 +4,7 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import MenuSection from "@/components/MenuSection";
+import PricingSection from "@/components/PricingSection";
 import PartnerSection from "@/components/PartnerSection";
 import Footer from "@/components/Footer";
 import BookingModal from "@/components/BookingModal";
@@ -27,6 +28,7 @@ export default function Home() {
         onOpenPartner={() => openModal("partner")}
       />
       <MenuSection onOrder={(productName) => openModal("order", productName)} />
+      <PricingSection onOrder={(plan) => openModal("order", plan)} />
       <PartnerSection onPartner={() => openModal("partner")} />
       <Footer />
 

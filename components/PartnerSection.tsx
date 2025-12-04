@@ -21,23 +21,33 @@ export default function PartnerSection({ onPartner }: { onPartner: () => void })
                         viewport={{ once: true }}
                     >
                         <span className="text-brand-lime font-bold tracking-wider text-sm mb-4 block">
-                            FOR GYM OWNERS
+                            CORPORATE & GYM PARTNERSHIPS
                         </span>
                         <h2 className="text-4xl md:text-5xl font-black text-brand-dark mb-6 leading-tight">
-                            TURN YOUR GYM INTO A <br />
-                            <span className="text-brand-lime">FUEL STATION</span>
+                            TURN YOUR GYM OR OFFICE INTO A <br />
+                            <span className="text-brand-lime">HEALTH HUB</span>
                         </h2>
                         <p className="text-brand-dark/70 text-lg mb-8">
-                            Partner with us to provide fresh, healthy nutrition to your members directly at your facility. We install the fridge, stock it daily, and handle everything.
+                            Partner with us to provide fresh, healthy nutrition to your members or employees. We install the fridge, stock it daily, and handle everything.
                         </p>
 
                         <ul className="space-y-4 mb-10">
-                            {benefits.map((benefit, index) => (
-                                <li key={index} className="flex items-center gap-3 text-brand-dark/90">
-                                    <CheckCircle2 className="text-brand-lime w-6 h-6" />
-                                    {benefit}
-                                </li>
-                            ))}
+                            <li className="flex items-center gap-3 text-brand-dark/90">
+                                <CheckCircle2 className="text-brand-lime w-6 h-6" />
+                                Zero upfront cost for partners
+                            </li>
+                            <li className="flex items-center gap-3 text-brand-dark/90">
+                                <CheckCircle2 className="text-brand-lime w-6 h-6" />
+                                Corporate Tiffins & Meeting Snacks
+                            </li>
+                            <li className="flex items-center gap-3 text-brand-dark/90">
+                                <CheckCircle2 className="text-brand-lime w-6 h-6" />
+                                Earn revenue share (for Gyms)
+                            </li>
+                            <li className="flex items-center gap-3 text-brand-dark/90">
+                                <CheckCircle2 className="text-brand-lime w-6 h-6" />
+                                Healthy employees = Productive employees
+                            </li>
                         </ul>
 
                         <button

@@ -20,16 +20,16 @@ export default function Hero({ onOpenMenu, onOpenPartner }: { onOpenMenu: () => 
                     transition={{ duration: 0.8 }}
                 >
                     <span className="inline-block py-1 px-3 rounded-full bg-brand-lime/10 text-brand-lime border border-brand-lime/20 text-sm font-bold tracking-wider mb-6">
-                        SIMPLYSLICED
+                        DAILY FRUIT DELIVERY
                     </span>
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-brand-dark tracking-tighter mb-6 leading-tight">
-                        THE ONLY CUTTING YOU SHOULD DO IS FOR YOUR <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-lime via-brand-yellow to-brand-pink">MUSCLES.</span>
+                        YOUR DAILY DOSE OF <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-lime via-brand-yellow to-brand-pink">NATURAL ENERGY.</span>
                     </h1>
                     <p className="text-xl md:text-2xl text-brand-dark/70 max-w-3xl mx-auto mb-4 font-medium">
-                        "Let us cut the fruit."
+                        Freshly sliced fruit bowls delivered daily to your Gym, Office, or Home.
                     </p>
                     <p className="text-lg text-brand-dark/50 max-w-2xl mx-auto mb-10 italic">
-                        Mom wants you to eat fruit. Coach wants you to eat carbs. We make both happy.
+                        No chopping, no shopping. Just open and eat.
                     </p>
 
                     <div className="flex flex-col md:flex-row items-center justify-center gap-4">
@@ -37,14 +37,14 @@ export default function Hero({ onOpenMenu, onOpenPartner }: { onOpenMenu: () => 
                             onClick={onOpenMenu}
                             className="group bg-brand-lime text-white font-bold text-lg px-8 py-4 rounded-full hover:bg-brand-lime/90 transition-all flex items-center gap-2"
                         >
-                            View Menu
+                            View Weekly Menu
                             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </button>
                         <button
-                            onClick={onOpenPartner}
+                            onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
                             className="px-8 py-4 rounded-full border border-brand-dark/20 text-brand-dark font-bold text-lg hover:bg-brand-dark/5 transition-colors"
                         >
-                            Partner with Us
+                            Start Subscription
                         </button>
                     </div>
                 </motion.div>
