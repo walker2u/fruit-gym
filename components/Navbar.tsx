@@ -32,9 +32,9 @@ export default function Navbar({ onOpenModal }: { onOpenModal: () => void }) {
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center space-x-8">
-                    <NavLink href="#menu">Menu</NavLink>
-                    <NavLink href="#how-it-works">How it Works</NavLink>
-                    <NavLink href="#partners">For Gyms</NavLink>
+                    <NavLink href="/menu">Menu</NavLink>
+                    <NavLink href="/#how-it-works">How it Works</NavLink>
+                    <NavLink href="/#partners">For Gyms</NavLink>
                     <button
                         onClick={onOpenModal}
                         className="bg-brand-lime text-white font-bold px-6 py-2 rounded-full hover:bg-brand-lime/90 transition-colors"
@@ -61,13 +61,13 @@ export default function Navbar({ onOpenModal }: { onOpenModal: () => void }) {
                         exit={{ opacity: 0, y: -20 }}
                         className="absolute top-full left-0 right-0 bg-white border-b border-brand-dark/10 p-6 md:hidden flex flex-col space-y-4"
                     >
-                        <MobileNavLink href="#menu" onClick={() => setIsMobileMenuOpen(false)}>
+                        <MobileNavLink href="/menu" onClick={() => setIsMobileMenuOpen(false)}>
                             Menu
                         </MobileNavLink>
-                        <MobileNavLink href="#how-it-works" onClick={() => setIsMobileMenuOpen(false)}>
+                        <MobileNavLink href="/#how-it-works" onClick={() => setIsMobileMenuOpen(false)}>
                             How it Works
                         </MobileNavLink>
-                        <MobileNavLink href="#partners" onClick={() => setIsMobileMenuOpen(false)}>
+                        <MobileNavLink href="/#partners" onClick={() => setIsMobileMenuOpen(false)}>
                             For Gyms
                         </MobileNavLink>
                         <button
