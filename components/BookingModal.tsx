@@ -200,44 +200,51 @@ export default function BookingModal({ isOpen, onClose, type, prefilledProduct }
                                                 {/* Duration Selection */}
                                                 <div>
                                                     <label className="block text-sm font-bold text-brand-dark mb-3">Duration</label>
-                                                    <div className="grid grid-cols-3 gap-2">
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => setDuration("single")}
-                                                            className={`p-2 rounded-xl border text-center transition-all ${duration === "single"
-                                                                ? "bg-brand-dark text-white border-brand-dark"
-                                                                : "bg-white border-brand-dark/10 text-brand-dark hover:border-brand-dark/30"
-                                                                }`}
-                                                        >
-                                                            <div className="text-xs font-bold mb-1">Single Bowl</div>
-                                                            <div className={`text-[10px] ${duration === "single" ? "text-white/60" : "text-brand-dark/40"}`}>₹179</div>
-                                                        </button>
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => setDuration("week")}
-                                                            className={`p-2 rounded-xl border text-center transition-all ${duration === "week"
-                                                                ? "bg-brand-dark text-white border-brand-dark"
-                                                                : "bg-white border-brand-dark/10 text-brand-dark hover:border-brand-dark/30"
-                                                                }`}
-                                                        >
-                                                            <div className="text-xs font-bold mb-1">1 Week</div>
-                                                            <div className={`text-[10px] ${duration === "week" ? "text-white/60" : "text-brand-dark/40"}`}>₹800</div>
-                                                        </button>
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => setDuration("month")}
-                                                            className={`p-2 rounded-xl border text-center transition-all relative overflow-hidden ${duration === "month"
-                                                                ? "bg-brand-lime text-white border-brand-lime"
-                                                                : "bg-white border-brand-dark/10 text-brand-dark hover:border-brand-dark/30"
-                                                                }`}
-                                                        >
-                                                            <div className="text-xs font-bold mb-1">1 Month</div>
-                                                            <div className={`text-[10px] ${duration === "month" ? "text-white/80" : "text-brand-dark/40"}`}>₹1,400</div>
-                                                            {duration === "month" && (
-                                                                <div className="absolute top-0 right-0 bg-white/20 text-[6px] font-bold px-1.5 py-0.5 rounded-bl-lg">BEST</div>
-                                                            )}
-                                                        </button>
-                                                    </div>
+                                                    {prefilledProduct && !["week", "month", "single"].includes(prefilledProduct) ? (
+                                                        <div className="p-4 rounded-xl border border-brand-dark/10 bg-brand-gray/50 text-center">
+                                                            <div className="text-sm font-bold text-brand-dark mb-1">One-Time Order</div>
+                                                            <div className="text-xs text-brand-dark/60">This item is available for single order only.</div>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="grid grid-cols-3 gap-2">
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => setDuration("single")}
+                                                                className={`p-2 rounded-xl border text-center transition-all ${duration === "single"
+                                                                    ? "bg-brand-dark text-white border-brand-dark"
+                                                                    : "bg-white border-brand-dark/10 text-brand-dark hover:border-brand-dark/30"
+                                                                    }`}
+                                                            >
+                                                                <div className="text-xs font-bold mb-1">Single Bowl</div>
+                                                                <div className={`text-[10px] ${duration === "single" ? "text-white/60" : "text-brand-dark/40"}`}>₹179</div>
+                                                            </button>
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => setDuration("week")}
+                                                                className={`p-2 rounded-xl border text-center transition-all ${duration === "week"
+                                                                    ? "bg-brand-dark text-white border-brand-dark"
+                                                                    : "bg-white border-brand-dark/10 text-brand-dark hover:border-brand-dark/30"
+                                                                    }`}
+                                                            >
+                                                                <div className="text-xs font-bold mb-1">1 Week</div>
+                                                                <div className={`text-[10px] ${duration === "week" ? "text-white/60" : "text-brand-dark/40"}`}>₹800</div>
+                                                            </button>
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => setDuration("month")}
+                                                                className={`p-2 rounded-xl border text-center transition-all relative overflow-hidden ${duration === "month"
+                                                                    ? "bg-brand-lime text-white border-brand-lime"
+                                                                    : "bg-white border-brand-dark/10 text-brand-dark hover:border-brand-dark/30"
+                                                                    }`}
+                                                            >
+                                                                <div className="text-xs font-bold mb-1">1 Month</div>
+                                                                <div className={`text-[10px] ${duration === "month" ? "text-white/80" : "text-brand-dark/40"}`}>₹1,400</div>
+                                                                {duration === "month" && (
+                                                                    <div className="absolute top-0 right-0 bg-white/20 text-[6px] font-bold px-1.5 py-0.5 rounded-bl-lg">BEST</div>
+                                                                )}
+                                                            </button>
+                                                        </div>
+                                                    )}
                                                 </div>
 
                                                 {/* Delivery Details */}
