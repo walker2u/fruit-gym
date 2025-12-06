@@ -27,7 +27,7 @@ export default function Home() {
         onOpenMenu={() => document.getElementById("menu")?.scrollIntoView({ behavior: "smooth" })}
         onOpenPartner={() => openModal("partner")}
       />
-      <MenuSection onOrder={(productName) => openModal("order", productName)} />
+      <MenuSection />
       <PricingSection onOrder={(plan) => openModal("order", plan)} />
       <PartnerSection onPartner={() => openModal("partner")} />
       <Footer />

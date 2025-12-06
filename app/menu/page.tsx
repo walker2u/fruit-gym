@@ -1,47 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, cloneElement } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Leaf, Zap, Droplets, Flame, Star, PenTool, Plus, Check, ShoppingBag } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BookingModal from "@/components/BookingModal";
-
-// --- Data ---
-const plans = {
-    lite: {
-        id: "lite",
-        name: "Lite & Glow",
-        icon: <Leaf className="w-5 h-5" />,
-        color: "bg-brand-lime",
-        textColor: "text-brand-lime",
-        description: "Perfect for weight management, skin health, and light office snacking.",
-        schedule: [
-            { day: "Monday", title: "The Red Detox", ingredients: "Watermelon, Pomegranate, Apple", icon: <Droplets className="w-4 h-4 text-blue-500" /> },
-            { day: "Tuesday", title: "Citrus Burst", ingredients: "Orange, Kiwi, Pineapple", icon: <Zap className="w-4 h-4 text-yellow-500" /> },
-            { day: "Wednesday", title: "Green Cleanse", ingredients: "Guava, Green Apple, Cucumber", icon: <Leaf className="w-4 h-4 text-green-500" /> },
-            { day: "Thursday", title: "Tropical Glow", ingredients: "Papaya, Muskmelon, Pineapple", icon: <Droplets className="w-4 h-4 text-orange-500" /> },
-            { day: "Friday", title: "Berry Antioxidant", ingredients: "Grapes, Pomegranate, Strawberry", icon: <Flame className="w-4 h-4 text-red-500" /> },
-            { day: "Saturday", title: "Weekend Hydration", ingredients: "Watermelon, Coconut Chunks, Mint", icon: <Droplets className="w-4 h-4 text-blue-400" /> },
-        ]
-    },
-    energy: {
-        id: "energy",
-        name: "Energy & Power",
-        icon: <Zap className="w-5 h-5" />,
-        color: "bg-brand-orange",
-        textColor: "text-brand-orange",
-        description: "High carb & protein focus for gym-goers and active lifestyles.",
-        schedule: [
-            { day: "Monday", title: "Power Pump", ingredients: "Banana, Chickoo, Dates, Peanut Butter", icon: <Zap className="w-4 h-4 text-yellow-600" /> },
-            { day: "Tuesday", title: "Muscle Recovery", ingredients: "Pineapple, Papaya, Pumpkin Seeds", icon: <Leaf className="w-4 h-4 text-green-600" /> },
-            { day: "Wednesday", title: "Carb Loader", ingredients: "Apple, Banana, Black Raisins", icon: <Flame className="w-4 h-4 text-red-600" /> },
-            { day: "Thursday", title: "Pre-Workout Fuel", ingredients: "Chickoo, Pomegranate, Coffee Dust", icon: <Zap className="w-4 h-4 text-orange-600" /> },
-            { day: "Friday", title: "Strength Builder", ingredients: "Guava, Banana, Mixed Nuts", icon: <Flame className="w-4 h-4 text-red-500" /> },
-            { day: "Saturday", title: "Cheat Day Treat", ingredients: "Mango (Seasonal) or Mixed Exotic, Honey", icon: <Droplets className="w-4 h-4 text-yellow-500" /> },
-        ]
-    }
-};
+import { plans } from "@/app/data/plans";
 
 // Combine all bowls into a single list, plus the special Bowl of the Day
 const allBowls = [
@@ -52,7 +18,10 @@ const allBowls = [
         isBotD: true,
         price: "₹249",
         calories: "180",
-        icon: <Star className="w-6 h-6 text-brand-pink" />
+        icon: <Star className="w-6 h-6 text-brand-pink" />,
+        image: "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=800&q=80",
+        macros: { carbs: "32g", protein: "4g", fat: "2g" },
+        tags: ["Antioxidant Rich", "Vitamin C Boost", "Low Calorie"]
     },
     ...plans.lite.schedule.map(s => ({ ...s, id: s.title.replace(/\s+/g, '-').toLowerCase(), isBotD: false, price: "₹199", calories: "150" })),
     ...plans.energy.schedule.map(s => ({ ...s, id: s.title.replace(/\s+/g, '-').toLowerCase(), isBotD: false, price: "₹229", calories: "250" }))
@@ -192,8 +161,8 @@ export default function MenuPage() {
                                         </div>
                                         {/* Visual Element (Placeholder for now, or use icons) */}
                                         <div className="w-full md:w-1/3 flex justify-center hidden md:flex">
-                                            <div className={`w-64 h-64 rounded-full bg-${slide.accent}/20 flex items-center justify-center animate-pulse`}>
-                                                {slide.plan.icon}
+                                            <div className={`w-64 h-64 rounded-full bg-${slide.accent}/20 flex items-center justify-center animate-pulse overflow-hidden relative`}>
+                                                <Image src={slide.plan.image} alt={slide.plan.name} fill className="object-cover" />
                                             </div>
                                         </div>
                                     </div>
@@ -211,7 +180,7 @@ export default function MenuPage() {
                             <div
                                 key={index}
                                 className={`rounded-3xl p-6 flex flex-col h-full relative overflow-hidden group transition-all hover:-translate-y-1 hover:shadow-xl ${bowl.isBotD
-                                    ? "bg-gradient-to-br from-brand-pink/10 to-brand-yellow/10 border-2 border-brand-pink col-span-1 md:col-span-2 lg:col-span-2 row-span-2"
+                                    ? "bg-gradient-to-br from-brand-pink/5 to-brand-purple/5 border-2 border-brand-pink col-span-1 md:col-span-2 lg:col-span-2 row-span-2"
                                     : "bg-white border border-brand-dark/5"
                                     }`}
                             >
@@ -221,26 +190,76 @@ export default function MenuPage() {
                                     </div>
                                 )}
 
-                                {/* Image Placeholder */}
-                                <div className={`rounded-2xl mb-4 flex items-center justify-center ${bowl.isBotD ? "h-64 bg-brand-pink/5" : "h-40 bg-brand-gray"
-                                    }`}>
-                                    <div className="text-4xl">{bowl.isBotD ? "🍓" : "🥗"}</div>
+                                {/* Image */}
+                                <div className={`rounded-2xl mb-4 overflow-hidden relative ${bowl.isBotD ? "h-64" : "h-48"
+                                    } bg-brand-gray/50`}>
+                                    {/* @ts-ignore */}
+                                    {bowl.image ? (
+                                        <img
+                                            /* @ts-ignore */
+                                            src={bowl.image}
+                                            alt={bowl.title}
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-4xl">🥗</div>
+                                    )}
                                 </div>
 
                                 <div className="flex-1 flex flex-col">
                                     <div className="flex justify-between items-start mb-2">
                                         <h3 className={`font-black text-brand-dark ${bowl.isBotD ? "text-3xl" : "text-xl"}`}>{bowl.title}</h3>
-                                        <span className="font-bold text-brand-dark/40">{bowl.price}</span>
+                                        <span className={`font-bold ${bowl.isBotD ? "text-2xl text-brand-pink" : "text-brand-dark/40"}`}>{bowl.price}</span>
                                     </div>
 
-                                    <p className="text-brand-dark/60 text-sm mb-4 flex-1">{bowl.ingredients}</p>
+                                    {/* BOTD Exclusive: Tags */}
+                                    {/* @ts-ignore */}
+                                    {bowl.isBotD && bowl.tags && (
+                                        <div className="flex flex-wrap gap-2 mb-3">
+                                            {/* @ts-ignore */}
+                                            {bowl.tags.map(tag => (
+                                                <span key={tag} className="px-2 py-1 rounded-md bg-brand-pink/10 text-brand-pink text-xs font-bold uppercase tracking-wider">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    <p className="text-brand-dark/60 text-sm mb-4 flex-1 leading-relaxed">{bowl.ingredients}</p>
+
+                                    {/* BOTD Exclusive: Macros */}
+                                    {/* @ts-ignore */}
+                                    {bowl.isBotD && bowl.macros && (
+                                        <div className="grid grid-cols-3 gap-2 mb-6 bg-white/50 rounded-xl p-3 border border-brand-dark/5">
+                                            <div className="text-center">
+                                                <div className="text-xs font-bold text-brand-dark/40 uppercase">Carbs</div>
+                                                {/* @ts-ignore */}
+                                                <div className="font-black text-brand-dark">{bowl.macros.carbs}</div>
+                                            </div>
+                                            <div className="text-center border-l border-brand-dark/10">
+                                                <div className="text-xs font-bold text-brand-dark/40 uppercase">Protein</div>
+                                                {/* @ts-ignore */}
+                                                <div className="font-black text-brand-dark">{bowl.macros.protein}</div>
+                                            </div>
+                                            <div className="text-center border-l border-brand-dark/10">
+                                                <div className="text-xs font-bold text-brand-dark/40 uppercase">Fat</div>
+                                                {/* @ts-ignore */}
+                                                <div className="font-black text-brand-dark">{bowl.macros.fat}</div>
+                                            </div>
+                                        </div>
+                                    )}
 
                                     <div className="flex items-center justify-between mt-auto pt-4 border-t border-brand-dark/5">
-                                        <span className="text-xs font-bold text-brand-dark/30 uppercase">{bowl.calories} kcal</span>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-xs font-bold text-brand-dark/30 uppercase">{bowl.calories} kcal</span>
+                                            {bowl.isBotD && <span className="w-1 h-1 rounded-full bg-brand-dark/20"></span>}
+                                            {bowl.isBotD && <span className="text-xs font-bold text-brand-green uppercase text-green-600">Perfect Breakfast</span>}
+                                        </div>
+
                                         <button
                                             onClick={() => openModal("order", bowl.title)}
                                             className={`font-bold rounded-xl transition-all flex items-center gap-2 ${bowl.isBotD
-                                                ? "bg-brand-pink text-white px-6 py-3 hover:bg-brand-pink/90"
+                                                ? "bg-brand-pink text-white px-8 py-4 hover:shadow-lg hover:shadow-brand-pink/20 hover:-translate-y-0.5"
                                                 : "bg-white border border-brand-dark/10 text-brand-dark px-4 py-2 hover:bg-brand-dark hover:text-white"
                                                 }`}
                                         >
@@ -254,7 +273,7 @@ export default function MenuPage() {
                 </section>
 
                 {/* --- 3. Customization --- */}
-                <section className="mb-16">
+                < section className="mb-16" >
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -298,8 +317,8 @@ export default function MenuPage() {
                             </button>
                         </div>
                     </motion.div>
-                </section>
-            </div>
+                </section >
+            </div >
 
             <Footer />
 
@@ -311,63 +330,75 @@ export default function MenuPage() {
             />
 
             {/* Modal for Weekly Menu Details */}
-            {selectedPlan && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" onClick={() => setSelectedPlan(null)}>
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        className="bg-white rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <div className={`p-8 sticky top-0 z-10 flex justify-between items-center border-b ${selectedPlan === 'lite' ? 'bg-brand-lime/10 border-brand-lime/20' : 'bg-brand-orange/10 border-brand-orange/20'}`}>
-                            <div className="flex items-center gap-4">
-                                <div className={`w-12 h-12 rounded-full flex items-center justify-center ${selectedPlan === 'lite' ? 'bg-brand-lime text-white' : 'bg-brand-orange text-white'}`}>
-                                    {plans[selectedPlan].icon}
-                                </div>
-                                <div>
-                                    <h3 className="text-2xl font-black text-brand-dark">{plans[selectedPlan].name}</h3>
-                                    <p className="text-brand-dark/60 text-sm">Weekly Schedule</p>
-                                </div>
-                            </div>
-                            <button
-                                onClick={() => setSelectedPlan(null)}
-                                className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-dark hover:bg-brand-gray transition-colors"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-                            </button>
-                        </div>
-
-                        <div className="p-8">
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {plans[selectedPlan].schedule.map((item, index) => (
-                                    <div
-                                        key={item.day}
-                                        className={`bg-white border rounded-3xl p-6 transition-all hover:shadow-lg group flex flex-col h-full ${selectedPlan === 'lite' ? 'border-brand-lime/20 hover:border-brand-lime' : 'border-brand-orange/20 hover:border-brand-orange'}`}
-                                    >
-                                        <div className="flex justify-between items-start mb-4">
-                                            <div className={`px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider ${selectedPlan === 'lite' ? 'bg-brand-lime/10 text-brand-lime' : 'bg-brand-orange/10 text-brand-orange'}`}>
-                                                {item.day}
-                                            </div>
-                                            <div className="w-10 h-10 rounded-full bg-brand-gray flex items-center justify-center group-hover:scale-110 transition-transform">
-                                                {item.icon}
-                                            </div>
-                                        </div>
-
-                                        <h3 className={`font-bold text-brand-dark text-xl mb-2 transition-colors ${selectedPlan === 'lite' ? 'group-hover:text-brand-lime' : 'group-hover:text-brand-orange'}`}>{item.title}</h3>
-                                        <p className="text-brand-dark/60 text-sm leading-relaxed mb-4 flex-1">{item.ingredients}</p>
-
-                                        <div className="pt-4 border-t border-brand-dark/5 flex items-center gap-2 text-xs font-bold text-brand-dark/30">
-                                            <div className={`w-2 h-2 rounded-full ${selectedPlan === 'lite' ? 'bg-brand-lime' : 'bg-brand-orange'}`}></div>
-                                            Freshly Prepared
-                                        </div>
+            {
+                selectedPlan && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" onClick={() => setSelectedPlan(null)}>
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            className="bg-white rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className={`p-8 sticky top-0 z-10 flex justify-between items-center border-b ${selectedPlan === 'lite' ? 'bg-brand-lime/10 border-brand-lime/20' : 'bg-brand-orange/10 border-brand-orange/20'}`}>
+                                <div className="flex items-center gap-4">
+                                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${selectedPlan === 'lite' ? 'bg-brand-lime text-white' : 'bg-brand-orange text-white'}`}>
+                                        {plans[selectedPlan].icon}
                                     </div>
-                                ))}
+                                    <div>
+                                        <h3 className="text-2xl font-black text-brand-dark">{plans[selectedPlan].name}</h3>
+                                        <p className="text-brand-dark/60 text-sm">Weekly Schedule</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => setSelectedPlan(null)}
+                                    className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-dark hover:bg-brand-gray transition-colors"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                                </button>
                             </div>
-                        </div>
-                    </motion.div>
-                </div>
-            )}
-        </main>
+
+                            <div className="p-8">
+                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {plans[selectedPlan].schedule.map((item, index) => (
+                                        <div
+                                            key={item.day}
+                                            className={`bg-white border rounded-3xl p-6 transition-all hover:shadow-lg group flex flex-col h-full ${selectedPlan === 'lite' ? 'border-brand-lime/20 hover:border-brand-lime' : 'border-brand-orange/20 hover:border-brand-orange'}`}
+                                        >
+                                            <div className="w-full h-48 rounded-2xl overflow-hidden mb-4 bg-brand-gray/50 relative">
+                                                {/* @ts-ignore */}
+                                                <img
+                                                    /* @ts-ignore */
+                                                    src={item.image}
+                                                    alt={item.title}
+                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                                />
+                                                <div className="absolute top-2 right-2 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm">
+                                                    {item.icon}
+                                                </div>
+                                            </div>
+
+                                            <div className="flex justify-between items-start mb-2">
+                                                <div className={`px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider ${selectedPlan === 'lite' ? 'bg-brand-lime/10 text-brand-lime' : 'bg-brand-orange/10 text-brand-orange'}`}>
+                                                    {item.day}
+                                                </div>
+                                            </div>
+
+                                            <h3 className={`font-bold text-brand-dark text-xl mb-2 transition-colors ${selectedPlan === 'lite' ? 'group-hover:text-brand-lime' : 'group-hover:text-brand-orange'}`}>{item.title}</h3>
+                                            <p className="text-brand-dark/60 text-sm leading-relaxed mb-4 flex-1">{item.ingredients}</p>
+
+                                            <div className="pt-4 border-t border-brand-dark/5 flex items-center gap-2 text-xs font-bold text-brand-dark/30">
+                                                <div className={`w-2 h-2 rounded-full ${selectedPlan === 'lite' ? 'bg-brand-lime' : 'bg-brand-orange'}`}></div>
+                                                Freshly Prepared
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                )
+            }
+        </main >
     );
 }
