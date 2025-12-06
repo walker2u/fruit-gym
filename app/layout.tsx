@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "SimplySliced | Fuel Your Gains",
   description: "The only cutting you should do is for your muscles. Let us cut the fruit.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
